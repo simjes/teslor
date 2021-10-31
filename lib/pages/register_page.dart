@@ -29,11 +29,11 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    Navigator.push(context, HomePage.route());
+    Navigator.pushReplacement(context, HomePage.route());
   }
 
   void navigateToLogin() {
-    Navigator.push(context, LoginPage.route());
+    Navigator.pushReplacement(context, LoginPage.route());
   }
 
   @override

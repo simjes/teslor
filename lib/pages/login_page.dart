@@ -42,12 +42,12 @@ class _LoginPageState extends State<LoginPage> {
 
       _loginStatus = AsyncStatus.success;
 
-      Navigator.push(context, HomePage.route());
+      Navigator.pushReplacement(context, HomePage.route());
     });
   }
 
   void navigateToRegistration() {
-    Navigator.push(context, RegisterPage.route());
+    Navigator.pushReplacement(context, RegisterPage.route());
   }
 
   @override
