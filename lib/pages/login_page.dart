@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tosler/async_status.dart';
 import 'package:tosler/main.dart';
+import 'package:tosler/pages/home_page.dart';
 import 'package:tosler/pages/register_page.dart';
 import 'package:tosler/supabase_client.dart';
 
@@ -30,13 +31,13 @@ class _LoginPageState extends State<LoginPage> {
       _loginStatus = AsyncStatus.loading;
     });
 
-    var result = await supabaseClient.auth.signIn(
+    var response = await supabaseClient.auth.signIn(
         email: _usernameController.text, password: _passwordController.text);
 
     setState(() {
-      if (result.error != null) {
+      if (response.error != null) {
         _loginStatus = AsyncStatus.error;
-        _errorMessage = result.error?.message ?? 'Unable to log in';
+        _errorMessage = response.error?.message ?? 'Unable to log in';
         return;
       }
 
