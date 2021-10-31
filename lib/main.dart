@@ -1,34 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tosler/pages/login_page.dart';
+import 'package:tosler/supabase_client.dart';
 import 'package:tosler/teslor_list_tile.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  var session = supabaseClient.auth.currentSession;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
       title: 'Flutter Demo',
-      home: const MyStatefulWidget(title: 'Flutter Demo Home Page'),
+      home: session == null ? LoginPage() : const HomePage(),
     );
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key, required this.title}) : super(key: key);
-  final String title;
+class HomePage extends StatefulWidget {
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
+  static Route<dynamic> route() =>
+      CupertinoPageRoute(builder: (context) => HomePage());
+  final String title = "ble";
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _HomePageState extends State<HomePage> {
   int _count = 0;
 
   void navigate() {}
