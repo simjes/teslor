@@ -23,7 +23,10 @@ class CarSummary extends StatelessWidget {
             ),
       range != null
           ? Row(children: [
-              Icon(CupertinoIcons.battery_75_percent),
+              Icon(
+                CupertinoIcons.battery_75_percent,
+                color: Colors.grey,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text("${range! * 5}km"),

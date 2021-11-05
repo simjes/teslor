@@ -101,7 +101,10 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                     ),
                     CupertinoButton(
                       onPressed: _navigate,
-                      child: Icon(CupertinoIcons.profile_circled),
+                      child: Icon(
+                        CupertinoIcons.profile_circled,
+                        color: Colors.grey,
+                      ),
                     ),
                   ],
                 ),
@@ -114,19 +117,33 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                   children: [
                     CupertinoButton(
                       onPressed: () {},
-                      child: Icon(CupertinoIcons.lock_fill),
+                      child: Icon(
+                        car.openCar
+                            ? CupertinoIcons.lock_open_fill
+                            : CupertinoIcons.lock_fill,
+                        color: Colors.grey,
+                      ),
                     ),
                     CupertinoButton(
                       onPressed: () {},
-                      child: Icon(TeslorIcons.fan),
+                      child: Icon(
+                        TeslorIcons.fan,
+                        color: Colors.grey,
+                      ),
                     ),
                     CupertinoButton(
                       onPressed: () {},
-                      child: Icon(CupertinoIcons.battery_charging),
+                      child: Icon(
+                        CupertinoIcons.battery_charging,
+                        color: Colors.grey,
+                      ),
                     ),
                     CupertinoButton(
                       onPressed: () {},
-                      child: Icon(TeslorIcons.frunk),
+                      child: Icon(
+                        TeslorIcons.frunk,
+                        color: Colors.grey,
+                      ),
                     )
                   ],
                 ),
@@ -140,13 +157,14 @@ class _HomePageState extends AuthRequiredState<HomePage> {
               ),
               TeslorListTile(
                 title: "Climate",
-                subtitle: "Interior 11C",
+                subtitle: "Interior ${car.interiorDegrees}°C",
                 leading: CupertinoIcons.waveform,
                 onTap: () {},
                 isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Location",
+                // TODO:
                 subtitle: "Noeveien 2",
                 leading: CupertinoIcons.location_fill,
                 onTap: () {},
@@ -154,7 +172,8 @@ class _HomePageState extends AuthRequiredState<HomePage> {
               ),
               TeslorListTile(
                 title: "Security",
-                subtitle: "something",
+                // TODO:
+                subtitle: "Connected",
                 leading: CupertinoIcons.shield_fill,
                 onTap: () {},
                 isLoading: _getCarStatus == AsyncStatus.loading,
