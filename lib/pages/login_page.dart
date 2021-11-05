@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase/supabase.dart';
 import 'package:tosler/async_status.dart';
 import 'package:tosler/components/auth_state.dart';
 import 'package:tosler/utils/constants.dart';
+import 'package:tosler/utils/gradient_text.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -61,27 +63,37 @@ class _LoginPageState extends AuthState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      child: SafeArea(
-          child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
-        children: [
-          const Text('Sign in via the magic link with your email below'),
-          const SizedBox(height: 18),
-          CupertinoTextField(
-            controller: _emailController,
-            placeholder: 'Email',
-            keyboardType: TextInputType.emailAddress,
-            // decoration: const InputDecoration(labelText: 'Email'),
-          ),
-          const SizedBox(height: 18),
-          CupertinoButton(
-            onPressed: _loginStatus == AsyncStatus.loading ? null : _signIn,
-            child: Text(_loginStatus == AsyncStatus.loading
-                ? 'Loading'
-                : 'Send Magic Link'),
-          ),
-        ],
-      )),
+      backgroundColor: Colors.black,
+      child: Container(
+        padding: const EdgeInsets.all(40.0),
+        child: SafeArea(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GradientText(
+              "Tosler",
+              style: TextStyle(fontFamily: "Lazer84", fontSize: 80),
+              gradient: LinearGradient(colors: [
+                Color(0xFF00C3FF),
+                Color(0xFFFF00CC),
+              ]),
+            ),
+            const SizedBox(height: 40),
+            CupertinoTextField(
+                controller: _emailController,
+                placeholder: 'Email',
+                keyboardType: TextInputType.emailAddress,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+            const SizedBox(height: 18),
+            CupertinoButton(
+              onPressed: _loginStatus == AsyncStatus.loading ? null : _signIn,
+              child: Text(_loginStatus == AsyncStatus.loading
+                  ? 'Loading'
+                  : 'Send Magic Link'),
+            ),
+          ],
+        )),
+      ),
     );
   }
 }
