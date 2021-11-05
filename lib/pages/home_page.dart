@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tosler/teslor_icons_icons.dart';
 
 import '../teslor_list_tile.dart';
 
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     CupertinoButton(
                       onPressed: () {},
-                      child: Icon(CupertinoIcons.waveform_circle),
+                      child: Icon(TeslorIcons.fan),
                     ),
                     CupertinoButton(
                       onPressed: () {},
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     CupertinoButton(
                       onPressed: () {},
-                      child: Icon(CupertinoIcons.car),
+                      child: Icon(TeslorIcons.frunk),
                     )
                   ],
                 ),
