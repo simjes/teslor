@@ -1,24 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tosler/pages/home_page.dart';
-import 'package:tosler/pages/login_page.dart';
-import 'package:tosler/supabase_client.dart';
-import 'package:tosler/teslor_list_tile.dart';
+import 'package:tosler/pages/splash_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://arktzmtjqtjmefmmyeqi.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNTcwNTg0NiwiZXhwIjoxOTUxMjgxODQ2fQ.Y6tsn1hJx16xZkdbOyss2HpWjoM8ZTPmX4U2M_5bpd0',
+  );
+
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  var session = supabaseClient.auth.currentSession;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      title: 'Flutter Demo',
-      home: session == null ? LoginPage() : const HomePage(),
+      title: 'Tosler',
+      home: SplashPage(),
     );
   }
 }
