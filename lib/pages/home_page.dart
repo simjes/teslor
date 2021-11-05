@@ -1,8 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:supabase/supabase.dart';
+import 'package:tosler/async_status.dart';
+import 'package:tosler/components/auth_required_state.dart';
+import 'package:tosler/components/car_summary.dart';
+import 'package:tosler/models/car.dart';
 import 'package:tosler/pages/account_page.dart';
+import 'package:tosler/pages/login_page.dart';
 import 'package:tosler/teslor_icons_icons.dart';
 import 'package:tosler/teslor_list_tile.dart';
+import 'package:tosler/utils/constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -12,13 +20,65 @@ class HomePage extends StatefulWidget {
       CupertinoPageRoute(builder: (context) => HomePage());
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends AuthRequiredState<HomePage> {
+  var _getCarStatus = AsyncStatus.loading;
+  late Car car;
+
+  Future<void> _getCar(String userId) async {
+    setState(() {
+      _getCarStatus = AsyncStatus.loading;
+    });
+
+    final response = await supabase
+        .from('car')
+        .select()
+        // TODO:
+        .eq('owner_id', 'c0965996-8467-4a63-9584-725b3d068aba')
+        // .eq('id', userId)
+        .single()
+        .execute();
+    final error = response.error;
+
+    setState(() {
+      if (error != null) {
+        _getCarStatus = AsyncStatus.error;
+        context.showDialog(
+            title: "Error",
+            message: response.error?.message ?? 'Unable to fetch car info');
+      } else {
+        final data = response.data;
+        if (data != null) {
+          car = Car.fromJson(data);
+        }
+        _getCarStatus = AsyncStatus.success;
+      }
+    });
+  }
+
   void _navigate() {
     Navigator.push(context, AccountPage.route());
+  }
+
+  @override
+  void onAuthenticated(Session session) {
+    final user = session.user;
+    if (user != null) {
+      _getCar(user.id);
+    }
+  }
+
+  @override
+  void onUnauthenticated() {
+    Navigator.pushReplacement(context, LoginPage.route());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -34,22 +94,10 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Yondu",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Row(children: [
-                          Icon(CupertinoIcons.battery_75_percent),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text("282km"),
-                          ),
-                        ]),
-                        Text("Parked"),
-                      ],
+                    CarSummary(
+                      name: car.name,
+                      range: car.battery,
+                      parked: car.parked,
                     ),
                     CupertinoButton(
                       onPressed: _navigate,
@@ -88,34 +136,40 @@ class _HomePageState extends State<HomePage> {
                 title: "Controls",
                 leading: CupertinoIcons.car,
                 onTap: () {},
+                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Climate",
                 subtitle: "Interior 11C",
                 leading: CupertinoIcons.waveform,
                 onTap: () {},
+                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Location",
                 subtitle: "Noeveien 2",
                 leading: CupertinoIcons.location_fill,
                 onTap: () {},
+                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Security",
                 subtitle: "something",
                 leading: CupertinoIcons.shield_fill,
                 onTap: () {},
+                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Upgrades",
                 leading: CupertinoIcons.bag_fill,
                 onTap: () {},
+                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Service",
                 leading: CupertinoIcons.wrench_fill,
                 onTap: () {},
+                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
             ],
           ),
