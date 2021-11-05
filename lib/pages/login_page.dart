@@ -18,7 +18,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends AuthState<LoginPage> {
   late final TextEditingController _emailController;
   AsyncStatus _loginStatus = AsyncStatus.notInitialized;
-  var _errorMessage = '';
 
   Future<void> _signIn() async {
     setState(() {
@@ -34,10 +33,14 @@ class _LoginPageState extends AuthState<LoginPage> {
     setState(() {
       if (error != null) {
         _loginStatus = AsyncStatus.error;
-        _errorMessage = response.error?.message ?? 'Unable to log in';
+        context.showDialog(
+            title: "Error",
+            message: response.error?.message ?? 'Unable to log in');
       } else {
         _loginStatus = AsyncStatus.success;
-        // context.showSnackBar(message: 'Check your email for login link!');
+
+        context.showDialog(
+            title: "Success", message: 'Check your email for login link!');
         _emailController.clear();
       }
     });
@@ -77,14 +80,6 @@ class _LoginPageState extends AuthState<LoginPage> {
                 ? 'Loading'
                 : 'Send Magic Link'),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          if (_loginStatus == AsyncStatus.loading)
-            CupertinoActivityIndicator(
-              animating: true,
-            ),
-          if (_loginStatus == AsyncStatus.error) Text(_errorMessage)
         ],
       )),
     );

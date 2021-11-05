@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tosler/pages/account_page.dart';
 import 'package:tosler/teslor_icons_icons.dart';
 
 import '../teslor_list_tile.dart';
@@ -18,9 +19,9 @@ class HomePage extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _HomePageState extends State<HomePage> {
-  int _count = 0;
-
-  void navigate() {}
+  void _navigate() {
+    Navigator.push(context, AccountPage.route());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
+                padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,9 +53,9 @@ class _HomePageState extends State<HomePage> {
                         Text("Parked"),
                       ],
                     ),
-                    const CircleAvatar(
-                      backgroundImage: AssetImage('images/user.png'),
-                      radius: 20,
+                    CupertinoButton(
+                      onPressed: _navigate,
+                      child: Icon(CupertinoIcons.profile_circled),
                     ),
                   ],
                 ),
@@ -88,35 +89,35 @@ class _HomePageState extends State<HomePage> {
               TeslorListTile(
                 title: "Controls",
                 leading: CupertinoIcons.car,
-                onTap: navigate,
+                onTap: () {},
               ),
               TeslorListTile(
                 title: "Climate",
                 subtitle: "Interior 11C",
                 leading: CupertinoIcons.waveform,
-                onTap: navigate,
+                onTap: () {},
               ),
               TeslorListTile(
                 title: "Location",
                 subtitle: "Noeveien 2",
                 leading: CupertinoIcons.location_fill,
-                onTap: navigate,
+                onTap: () {},
               ),
               TeslorListTile(
                 title: "Security",
                 subtitle: "something",
                 leading: CupertinoIcons.shield_fill,
-                onTap: navigate,
+                onTap: () {},
               ),
               TeslorListTile(
                 title: "Upgrades",
                 leading: CupertinoIcons.bag_fill,
-                onTap: navigate,
+                onTap: () {},
               ),
               TeslorListTile(
                 title: "Service",
                 leading: CupertinoIcons.wrench_fill,
-                onTap: navigate,
+                onTap: () {},
               ),
             ],
           ),

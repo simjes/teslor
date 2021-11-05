@@ -19,37 +19,37 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
   final _usernameController = TextEditingController();
   final _websiteController = TextEditingController();
 
-  AsyncStatus _getProfileStatus = AsyncStatus.notInitialized;
   AsyncStatus _submitStatus = AsyncStatus.notInitialized;
-  var _errorMessage = '';
 
   /// Called once a user id is received within `onAuthenticated()`
   Future<void> _getProfile(String userId) async {
-    setState(() {
-      _getProfileStatus = AsyncStatus.loading;
-    });
+    // setState(() {
+    //   _getProfileStatus = AsyncStatus.loading;
+    // });
 
-    final response = await supabase
-        .from('profiles')
-        .select()
-        .eq('id', userId)
-        .single()
-        .execute();
-    final error = response.error;
+    // final response = await supabase
+    //     .from('profiles')
+    //     .select()
+    //     .eq('id', userId)
+    //     .single()
+    //     .execute();
+    // final error = response.error;
 
-    setState(() {
-      if (error != null) {
-        _getProfileStatus = AsyncStatus.error;
-        _errorMessage = response.error?.message ?? 'Unable to fetch profile';
-      } else {
-        final data = response.data;
-        if (data != null) {
-          _usernameController.text = (data['username'] ?? '') as String;
-          _websiteController.text = (data['website'] ?? '') as String;
-        }
-        _getProfileStatus = AsyncStatus.success;
-      }
-    });
+    // setState(() {
+    //   if (error != null) {
+    //     // _getProfileStatus = AsyncStatus.error;
+    //     context.showDialog(
+    //         title: "Error",
+    //         message: response.error?.message ?? 'Unable to fetch profile');
+    //   } else {
+    //     final data = response.data;
+    //     if (data != null) {
+    //       _usernameController.text = (data['username'] ?? '') as String;
+    //       _websiteController.text = (data['website'] ?? '') as String;
+    //     }
+    //     // _getProfileStatus = AsyncStatus.success;
+    //   }
+    // });
   }
 
   /// Called when user taps `Update` button
@@ -72,8 +72,13 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
     setState(() {
       if (error != null) {
         _submitStatus = AsyncStatus.error;
-        _errorMessage = response.error?.message ?? 'Unable to update profile';
+        context.showDialog(
+            title: "Error",
+            message: response.error?.message ?? 'Unable to update profile');
       } else {
+        context.showDialog(
+            title: "Success",
+            message: response.error?.message ?? 'Unable to update profile');
         _submitStatus = AsyncStatus.success;
       }
     });
@@ -83,11 +88,11 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
     final response = await supabase.auth.signOut();
     final error = response.error;
     if (error != null) {
-      setState(() {
-        _errorMessage = error.message;
-      });
+      context.showDialog(
+          title: "Error",
+          message: response.error?.message ?? 'Unable to sign out');
     }
-    Navigator.pushReplacement(context, LoginPage.route());
+    Navigator.pushAndRemoveUntil(context, LoginPage.route(), (route) => false);
   }
 
   @override
@@ -113,6 +118,9 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text("Account"),
+      ),
       child: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
@@ -138,9 +146,6 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
                     : 'Update')),
             const SizedBox(height: 18),
             CupertinoButton(onPressed: _signOut, child: const Text('Sign Out')),
-            if (_submitStatus == AsyncStatus.error ||
-                _getProfileStatus == AsyncStatus.error)
-              Text(_errorMessage)
           ],
         ),
       ),
