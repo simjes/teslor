@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tosler/pages/account_page.dart';
 import 'package:tosler/teslor_icons_icons.dart';
-
-import '../teslor_list_tile.dart';
+import 'package:tosler/teslor_list_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -11,7 +10,6 @@ class HomePage extends StatefulWidget {
   }) : super(key: key);
   static Route<dynamic> route() =>
       CupertinoPageRoute(builder: (context) => HomePage());
-  final String title = "ble";
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -68,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     CupertinoButton(
                       onPressed: () {},
-                      child: Icon(CupertinoIcons.lock),
+                      child: Icon(CupertinoIcons.lock_fill),
                     ),
                     CupertinoButton(
                       onPressed: () {},

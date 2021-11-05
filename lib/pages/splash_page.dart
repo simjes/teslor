@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:tosler/components/auth_state.dart';
+import 'package:tosler/components/teslor_logo.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -8,7 +10,6 @@ class SplashPage extends StatefulWidget {
   _SplashPageState createState() => _SplashPageState();
 }
 
-// TODO: add logo or image
 class _SplashPageState extends AuthState<SplashPage> {
   @override
   void initState() {
@@ -18,11 +19,19 @@ class _SplashPageState extends AuthState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
-      child: Center(
-        child: CupertinoActivityIndicator(
-          animating: true,
-        ),
+    return CupertinoPageScaffold(
+      backgroundColor: Colors.black,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          TeslorLogo(),
+          SizedBox(
+            height: 20,
+          ),
+          CupertinoActivityIndicator(
+            animating: true,
+          ),
+        ],
       ),
     );
   }

@@ -4,19 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:supabase/supabase.dart';
 import 'package:tosler/async_status.dart';
 import 'package:tosler/components/auth_state.dart';
+import 'package:tosler/components/teslor_logo.dart';
 import 'package:tosler/utils/constants.dart';
-import 'package:tosler/utils/gradient_text.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
   static Route<dynamic> route() =>
-      CupertinoPageRoute(builder: (context) => LoginPage());
+      CupertinoPageRoute(builder: (context) => const LoginPage());
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-// TODO: customize
 class _LoginPageState extends AuthState<LoginPage> {
   late final TextEditingController _emailController;
   AsyncStatus _loginStatus = AsyncStatus.notInitialized;
@@ -70,20 +69,14 @@ class _LoginPageState extends AuthState<LoginPage> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GradientText(
-              "Tosler",
-              style: TextStyle(fontFamily: "Lazer84", fontSize: 80),
-              gradient: LinearGradient(colors: [
-                Color(0xFF00C3FF),
-                Color(0xFFFF00CC),
-              ]),
-            ),
+            const TeslorLogo(),
             const SizedBox(height: 40),
             CupertinoTextField(
                 controller: _emailController,
                 placeholder: 'Email',
                 keyboardType: TextInputType.emailAddress,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
             const SizedBox(height: 18),
             CupertinoButton(
               onPressed: _loginStatus == AsyncStatus.loading ? null : _signIn,

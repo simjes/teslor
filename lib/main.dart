@@ -12,16 +12,16 @@ Future<void> main() async {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNTcwNTg0NiwiZXhwIjoxOTUxMjgxODQ2fQ.Y6tsn1hJx16xZkdbOyss2HpWjoM8ZTPmX4U2M_5bpd0',
   );
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return const CupertinoApp(
       title: 'Tosler',
       home: SplashPage(),
     );
