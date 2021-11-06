@@ -244,14 +244,12 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                 onTap: () {
                   Navigator.push(context, ControlsPage.route());
                 },
-                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Climate",
                 subtitle: "Interior ${car.interiorDegrees}°C",
                 leading: CupertinoIcons.waveform,
                 onTap: () {},
-                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Location",
@@ -262,26 +260,22 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                       LocationPage.route(
                           car.latitude ?? 0, car.longitude ?? 0));
                 },
-                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Security",
                 subtitle: "Connected",
                 leading: CupertinoIcons.shield_fill,
                 onTap: () {},
-                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Upgrades",
                 leading: CupertinoIcons.bag_fill,
                 onTap: () {},
-                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
                 title: "Service",
                 leading: CupertinoIcons.wrench_fill,
                 onTap: () {},
-                isLoading: _getCarStatus == AsyncStatus.loading,
               ),
             ],
           ),
