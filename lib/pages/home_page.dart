@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:rive/rive.dart';
 import 'package:supabase/supabase.dart';
 import 'package:tosler/async_status.dart';
 import 'package:tosler/components/auth_required_state.dart';
@@ -31,6 +33,41 @@ class _HomePageState extends AuthRequiredState<HomePage> {
   Car car = Car();
   late RealtimeSubscription carSubscription;
 
+  Artboard? _riveArtboard;
+  StateMachineController? _riveController;
+  SMIInput<bool>? _driveInTrigger;
+  SMIInput<bool>? _chargingTrigger;
+  SMIInput<bool>? _frunkTrigger;
+
+  @override
+  void initState() {
+    super.initState();
+
+    rootBundle.load('animations/delorean_animation.riv').then((data) async {
+      final file = RiveFile.import(data);
+      final artboard = file.mainArtboard;
+
+      var controller = StateMachineController.fromArtboard(
+        artboard,
+        'Driving',
+      );
+
+      if (controller != null) {
+        artboard.addController(controller);
+        _driveInTrigger = controller.findInput('driveIn');
+        _driveInTrigger!.value = true;
+
+        _chargingTrigger = controller.findInput('charging');
+        _chargingTrigger!.value = false;
+
+        _frunkTrigger = controller.findInput('frunk');
+        _frunkTrigger!.value = false;
+      }
+
+      setState(() => _riveArtboard = artboard);
+    });
+  }
+
   Future<void> _getCar(String userId) async {
     setState(() {
       _getCarStatus = AsyncStatus.loading;
@@ -39,7 +76,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
     final response = await supabase
         .from('car')
         .select()
-        // TODO:
+        // TODO: Use userId when supabase has hooks
         .eq('owner_id', 'c0965996-8467-4a63-9584-725b3d068aba')
         // .eq('id', userId)
         .single()
@@ -56,6 +93,9 @@ class _HomePageState extends AuthRequiredState<HomePage> {
         final data = response.data;
         if (data != null) {
           car = Car.fromJson(data);
+
+          _chargingTrigger!.value = car.charging;
+          _frunkTrigger!.value = car.openFrunk;
         }
         _getCarStatus = AsyncStatus.success;
       }
@@ -64,7 +104,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
 
   Future<void> _updateSetting(String key, dynamic value) async {
     await supabase.from('car').update({key: value})
-        // TODO user!.id
+        // TODO: Use userId when supabase has hooks
         .match({"owner_id": 'c0965996-8467-4a63-9584-725b3d068aba'}).execute();
   }
 
@@ -90,17 +130,20 @@ class _HomePageState extends AuthRequiredState<HomePage> {
   @override
   void dispose() {
     supabase.removeSubscription(carSubscription);
+    _riveController!.dispose();
     super.dispose();
   }
 
   void _setupCarSubscription(String userId) {
-    // TODO
+    // TODO: Use userId when supabase has hooks
     carSubscription = supabase
         .from('car:owner_id=eq.c0965996-8467-4a63-9584-725b3d068aba')
         .on(SupabaseEventTypes.update, (payload) {
       setState(() {
         if (payload.newRecord != null) {
           car = Car.fromJson(payload.newRecord!);
+          _chargingTrigger!.value = car.charging;
+          _frunkTrigger!.value = car.openFrunk;
         }
       });
     }).subscribe();
@@ -134,7 +177,15 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                   ],
                 ),
               ),
-              Image.asset("images/car.png"),
+              SizedBox(
+                height: 150,
+                child: _riveArtboard != null
+                    ? Rive(
+                        artboard: _riveArtboard!,
+                      )
+                    : null,
+              ),
+              // Image.asset("images/car.png"),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
@@ -183,7 +234,6 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                   ],
                 ),
               ),
-              // TODO: create list of controls
               TeslorListTile(
                 title: "Controls",
                 leading: CupertinoIcons.car_detailed,
@@ -201,8 +251,6 @@ class _HomePageState extends AuthRequiredState<HomePage> {
               ),
               TeslorListTile(
                 title: "Location",
-                // TODO:
-                subtitle: "Noeveien 2",
                 leading: CupertinoIcons.location_fill,
                 onTap: () {
                   Navigator.push(
@@ -214,7 +262,6 @@ class _HomePageState extends AuthRequiredState<HomePage> {
               ),
               TeslorListTile(
                 title: "Security",
-                // TODO:
                 subtitle: "Connected",
                 leading: CupertinoIcons.shield_fill,
                 onTap: () {},

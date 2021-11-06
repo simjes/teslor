@@ -10,3 +10,4 @@
 - https://uigradients.com/
 - https://freesvg.org/
 - https://rive.app/
+- https://previewed.app/
