@@ -8,6 +8,7 @@ import 'package:tosler/components/car_summary.dart';
 import 'package:tosler/models/car.dart';
 import 'package:tosler/models/car_settings.dart';
 import 'package:tosler/pages/account_page.dart';
+import 'package:tosler/pages/location_page.dart';
 import 'package:tosler/pages/login_page.dart';
 import 'package:tosler/teslor_icons_icons.dart';
 import 'package:tosler/teslor_list_tile.dart';
@@ -24,10 +25,9 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _HomePageState extends AuthRequiredState<HomePage> {
   var _getCarStatus = AsyncStatus.loading;
-  late Car car;
+  Car car = Car();
   late RealtimeSubscription carSubscription;
 
   Future<void> _getCar(String userId) async {
@@ -68,7 +68,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
   }
 
   void _navigate() {
-    var carSettings = CarSettings(name: car.name);
+    var carSettings = CarSettings(name: car.name ?? '');
     Navigator.push(context, AccountPage.route(carSettings));
   }
 
@@ -125,7 +125,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                     ),
                     CupertinoButton(
                       onPressed: _navigate,
-                      child: Icon(
+                      child: const Icon(
                         CupertinoIcons.profile_circled,
                         color: Colors.grey,
                       ),
@@ -201,7 +201,12 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                 // TODO:
                 subtitle: "Noeveien 2",
                 leading: CupertinoIcons.location_fill,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      LocationPage.route(
+                          car.latitude ?? 0, car.longitude ?? 0));
+                },
                 isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(

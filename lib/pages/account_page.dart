@@ -90,6 +90,11 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
           children: [
+            const Text('Car name',
+                style: TextStyle(
+                  color: Color.fromRGBO(0, 0, 0, .5),
+                  fontSize: 13.0,
+                )),
             CupertinoTextField(
               controller: _carNameController,
               placeholder: 'Car name',

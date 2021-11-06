@@ -1,50 +1,50 @@
 class Car {
-  late int id;
-  late String createdAt;
-  late int battery;
+  late int? id;
+  late String? createdAt;
+  late int? battery;
   late bool charging;
   late bool parked;
-  late int interiorDegrees;
-  late int interiorDegreesTarget;
-  late int exteriorDegrees;
+  late int? interiorDegrees;
+  late int? interiorDegreesTarget;
+  late int? exteriorDegrees;
   late bool heatingWheel;
   late bool heatingSeatDriver;
   late bool heatingSeatShotgun;
   late bool heatingSeatDriverBack;
   late bool heatingSeatShotgunBack;
   late bool heatingSeatMiddleBack;
-  late double longitude;
-  late double latitude;
+  late double? longitude;
+  late double? latitude;
   late bool openFrunk;
   late bool openCar;
   late bool openTrunk;
   late bool openCharger;
-  late String name;
-  late String ownerId;
+  late String? name;
+  late String? ownerId;
 
   Car(
-      {required this.id,
-      required this.createdAt,
-      required this.battery,
-      required this.charging,
-      required this.parked,
-      required this.interiorDegrees,
-      required this.interiorDegreesTarget,
-      required this.exteriorDegrees,
-      required this.heatingWheel,
-      required this.heatingSeatDriver,
-      required this.heatingSeatShotgun,
-      required this.heatingSeatDriverBack,
-      required this.heatingSeatShotgunBack,
-      required this.heatingSeatMiddleBack,
-      required this.longitude,
-      required this.latitude,
-      required this.openFrunk,
-      required this.openCar,
-      required this.openTrunk,
-      required this.openCharger,
-      required this.name,
-      required this.ownerId});
+      {this.id,
+      this.createdAt,
+      this.battery,
+      this.charging = false,
+      this.parked = false,
+      this.interiorDegrees,
+      this.interiorDegreesTarget,
+      this.exteriorDegrees,
+      this.heatingWheel = false,
+      this.heatingSeatDriver = false,
+      this.heatingSeatShotgun = false,
+      this.heatingSeatDriverBack = false,
+      this.heatingSeatShotgunBack = false,
+      this.heatingSeatMiddleBack = false,
+      this.longitude,
+      this.latitude,
+      this.openFrunk = false,
+      this.openCar = false,
+      this.openTrunk = false,
+      this.openCharger = false,
+      this.name,
+      this.ownerId});
 
   Car.fromJson(Map<String, dynamic> json) {
     id = json['id'];

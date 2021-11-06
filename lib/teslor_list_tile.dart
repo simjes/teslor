@@ -35,7 +35,9 @@ class TeslorListTile extends StatelessWidget {
             : null,
         leading: Icon(leading),
         trailing: Icon(CupertinoIcons.chevron_forward),
-        onTap: onTap(),
+        onTap: () {
+          onTap();
+        },
       ),
     );
   }
