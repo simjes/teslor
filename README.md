@@ -8,3 +8,5 @@
 - http://sunrise-digital.net/font.html
 - https://supabase.io/
 - https://uigradients.com/
+- https://freesvg.org/
+- https://rive.app/
