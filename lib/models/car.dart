@@ -3,7 +3,7 @@ class Car {
   late String? createdAt;
   late int? battery;
   late bool charging;
-  late bool parked;
+  late bool? parked;
   late int? interiorDegrees;
   late int? interiorDegreesTarget;
   late int? exteriorDegrees;
@@ -27,7 +27,7 @@ class Car {
       this.createdAt,
       this.battery,
       this.charging = false,
-      this.parked = false,
+      this.parked,
       this.interiorDegrees,
       this.interiorDegreesTarget,
       this.exteriorDegrees,

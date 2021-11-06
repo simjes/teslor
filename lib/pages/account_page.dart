@@ -17,7 +17,6 @@ class AccountPage extends StatefulWidget {
   _AccountPageState createState() => _AccountPageState();
 }
 
-// TODO: customize
 class _AccountPageState extends AuthRequiredState<AccountPage> {
   final _carNameController = TextEditingController();
 
@@ -90,11 +89,7 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
           children: [
-            const Text('Car name',
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 0, 0, .5),
-                  fontSize: 13.0,
-                )),
+            Text('Car name', style: Theme.of(context).textTheme.overline),
             CupertinoTextField(
               controller: _carNameController,
               placeholder: 'Car name',
@@ -109,8 +104,11 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
             const SizedBox(height: 18),
             CupertinoButton(
                 onPressed: _signOut,
-                child: const Text('Sign Out',
-                    style: TextStyle(color: Colors.red))),
+                child: Text('Sign Out',
+                    style: Theme.of(context)
+                        .textTheme
+                        .button!
+                        .copyWith(color: Colors.red))),
           ],
         ),
       ),

@@ -37,6 +37,7 @@ dependencies:
   shimmer: ^2.0.0
   flutter_map: ^0.14.0
   rive: ^0.7.33
+  cupertino_list_tile: ^0.2.0
 
 dev_dependencies:
   flutter_test:

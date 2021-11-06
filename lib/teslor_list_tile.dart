@@ -1,7 +1,7 @@
+import 'package:cupertino_list_tile/cupertino_list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tosler/components/skeleton_shimmer.dart';
-import 'package:tosler/utils/constants.dart';
 
 class TeslorListTile extends StatelessWidget {
   final String title;
@@ -9,7 +9,6 @@ class TeslorListTile extends StatelessWidget {
   final IconData leading;
   final Function onTap;
   final bool isLoading;
-  // todo on click -> navigate
 
   const TeslorListTile(
       {Key? key,
@@ -22,26 +21,27 @@ class TeslorListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: ListTile(
-        title: isLoading
-            ? TextShimmer(
-                height: 16,
-              )
-            : Text(title),
-        subtitle: subtitle != null
-            ? isLoading
-                ? null
-                : Text(subtitle!)
-            : null,
-        leading: Icon(
-          leading,
-          color: PurplePizzazz,
-        ),
-        trailing: Icon(CupertinoIcons.chevron_forward),
-        onTap: () {
-          onTap();
-        },
+    return CupertinoListTile(
+      leading: Icon(
+        leading,
+        color: Colors.grey,
+      ),
+      onTap: () {
+        onTap();
+      },
+      subtitle: subtitle != null
+          ? isLoading
+              ? null
+              : Text(subtitle!)
+          : null,
+      title: isLoading
+          ? const TextShimmer(
+              height: 14,
+            )
+          : Text(title),
+      trailing: const Icon(
+        CupertinoIcons.chevron_forward,
+        color: Colors.grey,
       ),
     );
   }

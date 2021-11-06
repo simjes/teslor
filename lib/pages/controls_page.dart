@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:tosler/components/tosler_menu_button.dart';
-import 'package:tosler/utils/constants.dart';
 
 class ControlsPage extends StatelessWidget {
-  ControlsPage({Key? key, required}) : super(key: key);
+  const ControlsPage({Key? key, required}) : super(key: key);
   static Route<dynamic> route() =>
-      CupertinoPageRoute(builder: (context) => ControlsPage());
+      CupertinoPageRoute(builder: (context) => const ControlsPage());
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +20,18 @@ class ControlsPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    "Open - frunk",
-                  ),
+                  Text("Open - frunk",
+                      style: Theme.of(context).textTheme.headline6),
                   CupertinoButton(
-                    child: Icon(CupertinoIcons.lock_fill),
+                    child: const Icon(CupertinoIcons.lock_fill),
                     onPressed: () {},
                   ),
                   Row(
                     children: [
-                      Text("Open - charger"),
-                      Text("Open - trunk"),
+                      Text("Open - charger",
+                          style: Theme.of(context).textTheme.headline6),
+                      Text("Open - trunk",
+                          style: Theme.of(context).textTheme.headline6),
                     ],
                   ),
                 ],

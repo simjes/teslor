@@ -21,17 +21,19 @@ class _SplashPageState extends AuthState<SplashPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: Colors.black,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          TeslorLogo(),
-          SizedBox(
-            height: 20,
-          ),
-          CupertinoActivityIndicator(
-            animating: true,
-          ),
-        ],
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            TeslorLogo(),
+            SizedBox(
+              height: 20,
+            ),
+            CupertinoActivityIndicator(
+              animating: true,
+            ),
+          ],
+        ),
       ),
     );
   }

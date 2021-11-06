@@ -21,9 +21,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
-      title: 'Tosler',
-      home: SplashPage(),
+    return Theme(
+      data: ThemeData.dark(),
+      child: const CupertinoApp(
+        title: 'Tosler',
+        home: SplashPage(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

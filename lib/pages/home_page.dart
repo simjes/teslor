@@ -97,6 +97,8 @@ class _HomePageState extends AuthRequiredState<HomePage> {
           _chargingTrigger!.value = car.charging;
           _frunkTrigger!.value = car.openFrunk;
         }
+
+        // TODO: set after driveIn is done?
         _getCarStatus = AsyncStatus.success;
       }
     });
@@ -130,7 +132,9 @@ class _HomePageState extends AuthRequiredState<HomePage> {
   @override
   void dispose() {
     supabase.removeSubscription(carSubscription);
-    _riveController!.dispose();
+    if (_riveController != null) {
+      _riveController!.dispose();
+    }
     super.dispose();
   }
 
@@ -182,10 +186,10 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                 child: _riveArtboard != null
                     ? Rive(
                         artboard: _riveArtboard!,
+                        fit: BoxFit.fitHeight,
                       )
                     : null,
               ),
-              // Image.asset("images/car.png"),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
