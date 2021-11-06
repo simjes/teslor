@@ -22,6 +22,7 @@ class TeslorListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoListTile(
+      border: const Border(bottom: BorderSide.none),
       leading: Icon(
         leading,
         color: Colors.grey,

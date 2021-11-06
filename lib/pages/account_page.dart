@@ -81,6 +81,9 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    var textColor =
+        CupertinoDynamicColor.resolve(CupertinoColors.label, context);
+
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text("Account"),
@@ -89,7 +92,11 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
           children: [
-            Text('Car name', style: Theme.of(context).textTheme.overline),
+            Text('Car name',
+                style: Theme.of(context)
+                    .textTheme
+                    .overline!
+                    .copyWith(color: textColor)),
             CupertinoTextField(
               controller: _carNameController,
               placeholder: 'Car name',

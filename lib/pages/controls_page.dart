@@ -9,6 +9,9 @@ class ControlsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var textColor =
+        CupertinoDynamicColor.resolve(CupertinoColors.label, context);
+
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text("Controls"),
@@ -21,7 +24,10 @@ class ControlsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text("Open - frunk",
-                      style: Theme.of(context).textTheme.headline6),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: textColor)),
                   CupertinoButton(
                     child: const Icon(CupertinoIcons.lock_fill),
                     onPressed: () {},
@@ -29,9 +35,15 @@ class ControlsPage extends StatelessWidget {
                   Row(
                     children: [
                       Text("Open - charger",
-                          style: Theme.of(context).textTheme.headline6),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(color: textColor)),
                       Text("Open - trunk",
-                          style: Theme.of(context).textTheme.headline6),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(color: textColor)),
                     ],
                   ),
                 ],
