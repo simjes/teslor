@@ -6,6 +6,7 @@ import 'package:tosler/async_status.dart';
 import 'package:tosler/components/auth_required_state.dart';
 import 'package:tosler/components/car_summary.dart';
 import 'package:tosler/models/car.dart';
+import 'package:tosler/models/car_settings.dart';
 import 'package:tosler/pages/account_page.dart';
 import 'package:tosler/pages/login_page.dart';
 import 'package:tosler/teslor_icons_icons.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatefulWidget {
     Key? key,
   }) : super(key: key);
   static Route<dynamic> route() =>
-      CupertinoPageRoute(builder: (context) => HomePage());
+      CupertinoPageRoute(builder: (context) => const HomePage());
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,6 +28,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends AuthRequiredState<HomePage> {
   var _getCarStatus = AsyncStatus.loading;
   late Car car;
+  late RealtimeSubscription carSubscription;
 
   Future<void> _getCar(String userId) async {
     setState(() {
@@ -59,8 +61,15 @@ class _HomePageState extends AuthRequiredState<HomePage> {
     });
   }
 
+  Future<void> _updateSetting(String key, dynamic value) async {
+    await supabase.from('car').update({key: value})
+        // TODO user!.id
+        .match({"owner_id": 'c0965996-8467-4a63-9584-725b3d068aba'}).execute();
+  }
+
   void _navigate() {
-    Navigator.push(context, AccountPage.route());
+    var carSettings = CarSettings(name: car.name);
+    Navigator.push(context, AccountPage.route(carSettings));
   }
 
   @override
@@ -68,6 +77,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
     final user = session.user;
     if (user != null) {
       _getCar(user.id);
+      _setupCarSubscription(user.id);
     }
   }
 
@@ -78,7 +88,21 @@ class _HomePageState extends AuthRequiredState<HomePage> {
 
   @override
   void dispose() {
+    supabase.removeSubscription(carSubscription);
     super.dispose();
+  }
+
+  void _setupCarSubscription(String userId) {
+    // TODO
+    carSubscription = supabase
+        .from('car:owner_id=eq.c0965996-8467-4a63-9584-725b3d068aba')
+        .on(SupabaseEventTypes.update, (payload) {
+      setState(() {
+        if (payload.newRecord != null) {
+          car = Car.fromJson(payload.newRecord!);
+        }
+      });
+    }).subscribe();
   }
 
   @override
@@ -116,7 +140,9 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CupertinoButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _updateSetting("open_car", !car.openCar);
+                      },
                       child: Icon(
                         car.openCar
                             ? CupertinoIcons.lock_open_fill
@@ -125,22 +151,30 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                       ),
                     ),
                     CupertinoButton(
-                      onPressed: () {},
-                      child: Icon(
+                      onPressed: () {
+                        // Not implemented - missing in database
+                      },
+                      child: const Icon(
                         TeslorIcons.fan,
                         color: Colors.grey,
                       ),
                     ),
                     CupertinoButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _updateSetting("charging", !car.charging);
+                      },
                       child: Icon(
-                        CupertinoIcons.battery_charging,
+                        car.charging
+                            ? CupertinoIcons.bolt_slash_fill
+                            : CupertinoIcons.bolt_circle_fill,
                         color: Colors.grey,
                       ),
                     ),
                     CupertinoButton(
-                      onPressed: () {},
-                      child: Icon(
+                      onPressed: () {
+                        _updateSetting("open_frunk", !car.openFrunk);
+                      },
+                      child: const Icon(
                         TeslorIcons.frunk,
                         color: Colors.grey,
                       ),
