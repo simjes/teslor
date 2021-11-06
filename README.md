@@ -1,5 +1,13 @@
 # tosler
 
+![Teslor app store promo](/promo/appstore/combined.png "Teslor app store promo")
+
+---
+
+Recorded on Android emulator
+
+![Teslor gif](/promo/toslergif.gif "gif")
+
 ---
 
 ## Useful things I used in this project
