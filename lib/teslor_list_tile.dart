@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tosler/components/skeleton_shimmer.dart';
+import 'package:tosler/utils/constants.dart';
 
 class TeslorListTile extends StatelessWidget {
   final String title;
@@ -33,7 +34,10 @@ class TeslorListTile extends StatelessWidget {
                 ? null
                 : Text(subtitle!)
             : null,
-        leading: Icon(leading),
+        leading: Icon(
+          leading,
+          color: PurplePizzazz,
+        ),
         trailing: Icon(CupertinoIcons.chevron_forward),
         onTap: () {
           onTap();

@@ -8,6 +8,7 @@ import 'package:tosler/components/car_summary.dart';
 import 'package:tosler/models/car.dart';
 import 'package:tosler/models/car_settings.dart';
 import 'package:tosler/pages/account_page.dart';
+import 'package:tosler/pages/controls_page.dart';
 import 'package:tosler/pages/location_page.dart';
 import 'package:tosler/pages/login_page.dart';
 import 'package:tosler/teslor_icons_icons.dart';
@@ -147,7 +148,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                         car.openCar
                             ? CupertinoIcons.lock_open_fill
                             : CupertinoIcons.lock_fill,
-                        color: Colors.grey,
+                        color: car.openCar ? BrightTurquoise : Colors.grey,
                       ),
                     ),
                     CupertinoButton(
@@ -165,18 +166,18 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                       },
                       child: Icon(
                         car.charging
-                            ? CupertinoIcons.bolt_slash_fill
-                            : CupertinoIcons.bolt_circle_fill,
-                        color: Colors.grey,
+                            ? CupertinoIcons.bolt_circle_fill
+                            : CupertinoIcons.bolt_slash_fill,
+                        color: car.charging ? BrightTurquoise : Colors.grey,
                       ),
                     ),
                     CupertinoButton(
                       onPressed: () {
                         _updateSetting("open_frunk", !car.openFrunk);
                       },
-                      child: const Icon(
+                      child: Icon(
                         TeslorIcons.frunk,
-                        color: Colors.grey,
+                        color: car.openFrunk ? BrightTurquoise : Colors.grey,
                       ),
                     )
                   ],
@@ -185,8 +186,10 @@ class _HomePageState extends AuthRequiredState<HomePage> {
               // TODO: create list of controls
               TeslorListTile(
                 title: "Controls",
-                leading: CupertinoIcons.car,
-                onTap: () {},
+                leading: CupertinoIcons.car_detailed,
+                onTap: () {
+                  Navigator.push(context, ControlsPage.route());
+                },
                 isLoading: _getCarStatus == AsyncStatus.loading,
               ),
               TeslorListTile(
