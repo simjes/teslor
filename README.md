@@ -1,5 +1,7 @@
 # tosler
 
+Working on getting some mobile development experience. This is just a semi clone of the Tesla app to try out various technologies. See more in [link](#useful-things-i-used-in-this-project)
+
 ![Teslor app store promo](/promo/appstore/combined.png "Teslor app store promo")
 
 ---
