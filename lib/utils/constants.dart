@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final supabase = Supabase.instance.client;
 
 // colors
-final BrightTurquoise = Color(0xFF00C3FF);
-final PurplePizzazz = Color(0xFFFF00CC);
+const brightTurquoise = Color(0xFF00C3FF);
+const purplePizzazz = Color(0xFFFF00CC);
 
 // sizes - TODO
 

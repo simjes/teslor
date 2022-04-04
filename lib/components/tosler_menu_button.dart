@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:tosler/utils/constants.dart';
 
 class ToslerMenuButton extends StatelessWidget {
-  ToslerMenuButton({
+  const ToslerMenuButton({
     Key? key,
     required this.text,
     required this.icon,
     required this.onPressed,
   }) : super(key: key);
 
-  String text;
-  IconData icon;
-  Function onPressed;
+  final String text;
+  final IconData icon;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class ToslerMenuButton extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: PurplePizzazz,
+            color: purplePizzazz,
           ),
-          Text(text, style: TextStyle(color: PurplePizzazz))
+          Text(text, style: const TextStyle(color: purplePizzazz))
         ],
       ),
       onPressed: () {

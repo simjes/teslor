@@ -7,12 +7,12 @@ class TeslorLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientText(
+    return const GradientText(
       "Tosler",
-      style: const TextStyle(fontFamily: "Lazer84", fontSize: 60),
+      style: TextStyle(fontFamily: "Lazer84", fontSize: 60),
       gradient: LinearGradient(colors: [
-        BrightTurquoise,
-        PurplePizzazz,
+        brightTurquoise,
+        purplePizzazz,
       ]),
     );
   }

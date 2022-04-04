@@ -100,7 +100,7 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
             CupertinoTextField(
               controller: _carNameController,
               placeholder: 'Car name',
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             ),
             const SizedBox(height: 18),
             CupertinoButton(

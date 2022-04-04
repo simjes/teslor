@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
 import 'package:supabase/supabase.dart';
@@ -203,7 +202,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                         car.openCar
                             ? CupertinoIcons.lock_open_fill
                             : CupertinoIcons.lock_fill,
-                        color: car.openCar ? BrightTurquoise : Colors.grey,
+                        color: car.openCar ? brightTurquoise : Colors.grey,
                       ),
                     ),
                     CupertinoButton(
@@ -223,7 +222,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                         car.charging
                             ? CupertinoIcons.bolt_circle_fill
                             : CupertinoIcons.bolt_slash_fill,
-                        color: car.charging ? BrightTurquoise : Colors.grey,
+                        color: car.charging ? brightTurquoise : Colors.grey,
                       ),
                     ),
                     CupertinoButton(
@@ -232,7 +231,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
                       },
                       child: Icon(
                         TeslorIcons.frunk,
-                        color: car.openFrunk ? BrightTurquoise : Colors.grey,
+                        color: car.openFrunk ? brightTurquoise : Colors.grey,
                       ),
                     )
                   ],

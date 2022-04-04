@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:tosler/utils/constants.dart';
 
 class LocationPage extends StatelessWidget {
-  LocationPage({Key? key, required this.latitude, required this.longitude})
+  const LocationPage(
+      {Key? key, required this.latitude, required this.longitude})
       : super(key: key);
   static Route<dynamic> route(double latitude, double longitude) =>
       CupertinoPageRoute(
@@ -14,8 +14,8 @@ class LocationPage extends StatelessWidget {
                 longitude: longitude,
               ));
 
-  double latitude;
-  double longitude;
+  final double latitude;
+  final double longitude;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +43,9 @@ class LocationPage extends StatelessWidget {
                   width: 80.0,
                   height: 80.0,
                   point: LatLng(latitude, longitude),
-                  builder: (ctx) => Container(
-                    child: Icon(
-                      CupertinoIcons.car_detailed,
-                      color: PurplePizzazz,
-                    ),
+                  builder: (ctx) => const Icon(
+                    CupertinoIcons.car_detailed,
+                    color: purplePizzazz,
                   ),
                 ),
               ],

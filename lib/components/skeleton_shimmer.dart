@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:tosler/utils/constants.dart';
 
 class TextShimmer extends StatelessWidget {
   const TextShimmer({Key? key, this.width = 50, this.height = 15})
