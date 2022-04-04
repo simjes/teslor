@@ -75,9 +75,7 @@ class _HomePageState extends AuthRequiredState<HomePage> {
     final response = await supabase
         .from('car')
         .select()
-        // TODO: Use userId when supabase has hooks
-        .eq('owner_id', 'c0965996-8467-4a63-9584-725b3d068aba')
-        // .eq('id', userId)
+        .eq('owner_id', userId)
         .single()
         .execute();
     final error = response.error;
@@ -104,9 +102,10 @@ class _HomePageState extends AuthRequiredState<HomePage> {
   }
 
   Future<void> _updateSetting(String key, dynamic value) async {
-    await supabase.from('car').update({key: value})
-        // TODO: Use userId when supabase has hooks
-        .match({"owner_id": 'c0965996-8467-4a63-9584-725b3d068aba'}).execute();
+    final user = supabase.auth.currentUser;
+    await supabase
+        .from('car')
+        .update({key: value}).match({"owner_id": user!.id}).execute();
   }
 
   void _navigate() {
@@ -138,9 +137,8 @@ class _HomePageState extends AuthRequiredState<HomePage> {
   }
 
   void _setupCarSubscription(String userId) {
-    // TODO: Use userId when supabase has hooks
     carSubscription = supabase
-        .from('car:owner_id=eq.c0965996-8467-4a63-9584-725b3d068aba')
+        .from('car:owner_id=eq.$userId')
         .on(SupabaseEventTypes.update, (payload) {
       setState(() {
         if (payload.newRecord != null) {

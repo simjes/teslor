@@ -30,9 +30,9 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
     final carName = _carNameController.text;
     final user = supabase.auth.currentUser;
 
-    final response = await supabase.from('car').update({"name": carName})
-        // TODO user!.id
-        .match({"owner_id": 'c0965996-8467-4a63-9584-725b3d068aba'}).execute();
+    final response = await supabase
+        .from('car')
+        .update({"name": carName}).match({"owner_id": user!.id}).execute();
     final error = response.error;
 
     setState(() {

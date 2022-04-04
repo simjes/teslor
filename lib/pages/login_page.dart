@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase/supabase.dart';
 import 'package:tosler/async_status.dart';
@@ -26,9 +25,8 @@ class _LoginPageState extends AuthState<LoginPage> {
     });
     final response = await supabase.auth.signIn(
         email: _emailController.text,
-        options: AuthOptions(
-            redirectTo:
-                kIsWeb ? null : 'io.supabase.tosler://login-callback/'));
+        options:
+            AuthOptions(redirectTo: 'io.supabase.tosler://login-callback/'));
     final error = response.error;
 
     setState(() {
