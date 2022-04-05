@@ -8,6 +8,7 @@ Future<void> main() async {
 
   await Supabase.initialize(
     url: 'https://arktzmtjqtjmefmmyeqi.supabase.co',
+    // Burde ikke ha key her, men er ikke en secret — fremtidig forbedring å hente fra annen plass
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNTcwNTg0NiwiZXhwIjoxOTUxMjgxODQ2fQ.Y6tsn1hJx16xZkdbOyss2HpWjoM8ZTPmX4U2M_5bpd0',
   );
