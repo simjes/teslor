@@ -8,6 +8,7 @@ Future<void> main() async {
 
   await Supabase.initialize(
     url: 'https://arktzmtjqtjmefmmyeqi.supabase.co',
+    // Should get this key from environment, but it's fine. Not a secret and only PoC project
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNTcwNTg0NiwiZXhwIjoxOTUxMjgxODQ2fQ.Y6tsn1hJx16xZkdbOyss2HpWjoM8ZTPmX4U2M_5bpd0',
   );
